@@ -12,8 +12,9 @@
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
-@property (strong, nonatomic) UIWindow *window;
++(CGSize)sizeInOrientation:(UIInterfaceOrientation)orientation;
++(CGRect)rectInOrientation:(UIInterfaceOrientation)orientation;
 
-@property (strong, nonatomic) ViewController *viewController;
+@property (strong, nonatomic) UIWindow *window;
 
 @end

@@ -7,6 +7,8 @@
 //
 
 #import "ViewController.h"
+#import "GraphViewController.h"
+#import "AppDelegate.h"
 
 @interface ViewController ()
 
@@ -14,24 +16,90 @@
 
 @implementation ViewController
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+    
+    // The back button will remain responsive if the user picks the background option
+    
+    self.title = @"Test Background Drawing";
+    CGRect rect = [AppDelegate rectInOrientation:[UIApplication sharedApplication].statusBarOrientation];
+    UITableView *tableView = [[UITableView alloc] initWithFrame:rect style:UITableViewStylePlain];
+    tableView.delegate = self;
+    tableView.dataSource = self;
+    [self.view addSubview:tableView];
+    [tableView release];
 }
 
-- (void)viewDidUnload
-{
+- (void)dealloc {
+    [super dealloc];
+}
+
+- (void)viewDidUnload {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
+- (void)viewWillAppear:(BOOL)animated {
+    CGRect rect = [AppDelegate rectInOrientation:[UIApplication sharedApplication].statusBarOrientation];
+    for (UITableView *view in self.view.subviews) {
+        view.frame = rect;
+    }
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
     } else {
         return YES;
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    GraphViewController *test = nil;
+    if (indexPath.row == 0) {
+        test = [[[GraphViewController alloc] initWithValue:YES] autorelease];
+    } else {
+        test = [[[GraphViewController alloc] initWithValue:NO] autorelease];
+    }
+    
+    [self.navigationController pushViewController:test animated:YES];
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 2;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    static NSString *CellIdentifier = @"Cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
+    }
+    
+    cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    cell.detailTextLabel.text = nil;
+    cell.imageView.image = nil;
+    
+    if (indexPath.row == 0) {
+        cell.textLabel.text = @"Background";
+    } else {
+        cell.textLabel.text = @"Main UI Thread";
+    }
+    
+    return cell;
+}
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    CGRect rect = [AppDelegate rectInOrientation:toInterfaceOrientation];
+    for (UITableView *view in self.view.subviews) {
+        view.frame = rect;
     }
 }
 

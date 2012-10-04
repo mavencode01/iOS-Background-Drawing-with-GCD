@@ -13,25 +13,23 @@
 @implementation AppDelegate
 
 @synthesize window = _window;
-@synthesize viewController = _viewController;
 
 - (void)dealloc
 {
     [_window release];
-    [_viewController release];
     [super dealloc];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    UINavigationController *mainController = [[[UINavigationController alloc] init] autorelease];
+    
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
-    // Override point for customization after application launch.
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        self.viewController = [[[ViewController alloc] initWithNibName:@"ViewController_iPhone" bundle:nil] autorelease];
-    } else {
-        self.viewController = [[[ViewController alloc] initWithNibName:@"ViewController_iPad" bundle:nil] autorelease];
-    }
-    self.window.rootViewController = self.viewController;
+
+    ViewController *viewController = [[[ViewController alloc] init] autorelease];
+    [mainController pushViewController:viewController animated:YES];
+    
+    self.window.rootViewController = mainController;
     [self.window makeKeyAndVisible];
     return YES;
 }
@@ -61,6 +59,23 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
++ (CGSize)sizeInOrientation:(UIInterfaceOrientation)orientation {
+    CGSize size = [UIScreen mainScreen].bounds.size;
+    UIApplication *application = [UIApplication sharedApplication];
+    if (UIInterfaceOrientationIsLandscape(orientation)) {
+        size = CGSizeMake(size.height, size.width);
+    }
+    if (application.statusBarHidden == NO) {
+        size.height -= MIN(application.statusBarFrame.size.width, application.statusBarFrame.size.height);
+    }
+    return size;
+}
+
++(CGRect)rectInOrientation:(UIInterfaceOrientation)orientation {
+    CGSize size = [AppDelegate sizeInOrientation:orientation];
+    return CGRectMake(0, 0, size.width, size.height);
 }
 
 @end

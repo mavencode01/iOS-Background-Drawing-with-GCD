@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  GraphViewController.h
 //  TestBackgroundDrawing
 //
 //  Created by Bartel, Charles on 9/6/12.
@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface GraphViewController : UIViewController
+
+- (id)initWithValue:(BOOL)background;
 
 @end
