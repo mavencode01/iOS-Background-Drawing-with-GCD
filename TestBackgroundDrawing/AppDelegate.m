@@ -61,6 +61,7 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+// Returns the size of the screen based on the passed in screen orientation
 + (CGSize)sizeInOrientation:(UIInterfaceOrientation)orientation {
     CGSize size = [UIScreen mainScreen].bounds.size;
     UIApplication *application = [UIApplication sharedApplication];
@@ -73,6 +74,7 @@
     return size;
 }
 
+// Returns a rect of the screen based on the passed in screen orientation
 +(CGRect)rectInOrientation:(UIInterfaceOrientation)orientation {
     CGSize size = [AppDelegate sizeInOrientation:orientation];
     return CGRectMake(0, 0, size.width, size.height);

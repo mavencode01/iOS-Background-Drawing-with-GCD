@@ -25,11 +25,14 @@
 @synthesize isBusy = _isBusy;
 @synthesize drawInBackGround = _drawInBackGround;
 
+// Do the custom drawing to a UIImage buffer
+// Render in the main UI thread or in a background thread
+// Get the image buffer and draw it to the screen duing the drawRect method
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        _imageQueue = dispatch_queue_create("image.view.dispatchqueue", NULL);
-        _drawQueue = dispatch_queue_create("draw.view.dispatchqueue", NULL);
+        _imageQueue = dispatch_queue_create("image.view.dispatchqueue", DISPATCH_QUEUE_SERIAL);
+        _drawQueue = dispatch_queue_create("draw.view.dispatchqueue", DISPATCH_QUEUE_SERIAL);
         _drawInBackGround = YES;
     }
     return self;
@@ -43,6 +46,10 @@
     NSLog(@"dealloc BackgroundUIView");
 }
 
+// For views that contain custom content using UIKit or Core Graphics, the system calls the view’s drawRect: method. 
+// Your implementation of this method is responsible for drawing the view’s content into the current graphics context, 
+// which is set up by the system automatically prior to calling this method. 
+// This creates a static visual representation of your view’s content that can then be displayed on the screen.
 - (void)drawRect:(CGRect)rect {
     NSLog(@"start of drawRect");
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -57,6 +64,7 @@
     NSLog(@"end of drawRect");
 }
 
+// update the UIView
 - (void)updateView {
     
     if (_isBusy) {
@@ -76,6 +84,7 @@
     }
 }
 
+// Do the custom drawing and set the UIImage
 - (void)render {
     NSLog(@"***start of render");
     
@@ -83,8 +92,10 @@
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextClearRect(context, self.frame);
 
+    // override in subclass
     [self drawWithContext:context withWidth:self.frame.size.width withHeight:self.frame.size.height];
     
+    // Returns an image based on the contents of the current bitmap-based graphics context
     UIImage *theImage = UIGraphicsGetImageFromCurrentImageContext();
     [self setImage:theImage];
     UIGraphicsEndImageContext();
@@ -94,6 +105,8 @@
     [self performSelectorOnMainThread:@selector(setNeedsDisplay) withObject:nil waitUntilDone:NO];
 }
 
+// The image object will be accessed by multiple threads
+// To ensure data integrity use a serial dispatch queue
 - (UIImage *)getImage {
     __block UIImage *image = nil;
     dispatch_sync(_imageQueue, ^{

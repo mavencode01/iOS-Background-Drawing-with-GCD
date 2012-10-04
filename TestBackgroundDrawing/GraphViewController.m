@@ -36,16 +36,19 @@
     CGRect navframe = [[self.navigationController navigationBar] frame];
     int height = size.height - navframe.size.height;
     int count = 4;
+    
+    // Add the GraphViews to this view
     for (int i = 0; i < count; i++) {
         CGRect rect = CGRectMake(0, (float)height/count * i, size.width, (float)height/count);
         GraphView *test = [[[GraphView alloc] initWithFrame:rect] autorelease];
         test.drawInBackGround = _background;
-        test.startIndex = arc4random_uniform(size.width);
+        test.startIndex = arc4random_uniform(size.width); // random start index
         [self.view addSubview:test];
     }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+    // Tell the graphs to start drawing when the view appears
     for (GraphView *view in self.view.subviews) {
         [view updateView];
     }
@@ -55,6 +58,7 @@
     [super viewDidUnload];
 }
 
+// support all orientations except if the iphone is upside down
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
@@ -63,6 +67,8 @@
     }
 }
 
+// UIViewController method
+// Notifies when rotation begins
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     
     CGSize size = [AppDelegate sizeInOrientation:toInterfaceOrientation];
@@ -71,6 +77,8 @@
     
     int count = [self.view.subviews count];
     int i = 0;
+    
+    // Update the graph views based on the new screen size
     for (GraphView *view in self.view.subviews) {
         CGRect rect = CGRectMake(0, (float)height/count * i, size.width, (float)height/count);
         view.frame = rect;
