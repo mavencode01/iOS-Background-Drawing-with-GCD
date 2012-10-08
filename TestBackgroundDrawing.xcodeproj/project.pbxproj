@@ -17,6 +17,7 @@
 		1AE7E66515F91D0D00ECB1E4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AE7E66415F91D0D00ECB1E4 /* ViewController.m */; };
 		1AE7E67315F91F1500ECB1E4 /* GraphViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AE7E67215F91F1500ECB1E4 /* GraphViewController.m */; };
 		1AE7E67615F91F4F00ECB1E4 /* BackgroundUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AE7E67515F91F4E00ECB1E4 /* BackgroundUIView.m */; };
+		1AEAE1311621D03000B8541F /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AEAE1301621D03000B8541F /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,7 @@
 		1AE7E67115F91F1500ECB1E4 /* GraphViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphViewController.h; sourceTree = "<group>"; };
 		1AE7E67215F91F1500ECB1E4 /* GraphViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphViewController.m; sourceTree = "<group>"; };
 		1AE7E67515F91F4E00ECB1E4 /* BackgroundUIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackgroundUIView.m; sourceTree = "<group>"; };
+		1AEAE1301621D03000B8541F /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 		1AE7E64215F91D0D00ECB1E4 = {
 			isa = PBXGroup;
 			children = (
+				1AEAE1301621D03000B8541F /* Default-568h@2x.png */,
 				1AE7E65715F91D0D00ECB1E4 /* TestBackgroundDrawing */,
 				1AE7E65015F91D0D00ECB1E4 /* Frameworks */,
 				1AE7E64E15F91D0D00ECB1E4 /* Products */,
@@ -163,6 +166,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1AE7E65C15F91D0D00ECB1E4 /* InfoPlist.strings in Resources */,
+				1AEAE1311621D03000B8541F /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -215,7 +219,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -233,7 +237,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -247,6 +251,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TestBackgroundDrawing/TestBackgroundDrawing-Prefix.pch";
 				INFOPLIST_FILE = "TestBackgroundDrawing/TestBackgroundDrawing-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -258,6 +263,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TestBackgroundDrawing/TestBackgroundDrawing-Prefix.pch";
 				INFOPLIST_FILE = "TestBackgroundDrawing/TestBackgroundDrawing-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
